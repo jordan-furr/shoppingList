@@ -17,8 +17,8 @@ class ItemController {
     //MARK: Source of Truth
     let fetchedResultsController: NSFetchedResultsController<Item> = {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "isComplete", ascending: true)]
-        let resultsController: NSFetchedResultsController<Item> = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let resultsController: NSFetchedResultsController<Item> = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: "isComplete", cacheName: nil)
         return resultsController
     }()
     
