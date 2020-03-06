@@ -15,7 +15,7 @@ class ItemTableViewCell: UITableViewCell {
     
     var item: Item?
     weak var delegate: ItemTableViewCellDelegate?
-
+    
     //MARK: IB OUTLETS
     @IBOutlet weak var labelText: UILabel!
     @IBOutlet weak var checkButton: UIButton!

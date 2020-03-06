@@ -16,7 +16,7 @@ class ShoppingTableViewController: UITableViewController{
         super.viewDidLoad()
         ItemController.shared.fetchedResultsController.delegate = self
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ItemController.shared.fetchedResultsController.sections?[section].numberOfObjects ?? 0
@@ -59,6 +59,7 @@ class ShoppingTableViewController: UITableViewController{
         self.present(alertController, animated: true, completion: nil)
     }
     
+    //MARK: Cell Style
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
@@ -70,6 +71,7 @@ extension ShoppingTableViewController: ItemTableViewCellDelegate {
         ItemController.shared.toggleisComplete(item: item)
         cell.updateButton(isComplete: item.isComplete)
         tableView.reloadData()
+        
     }
 }
 
@@ -97,6 +99,21 @@ extension ShoppingTableViewController: NSFetchedResultsControllerDelegate{
         case .update:
             guard let indexPath = indexPath else {break}
             tableView.reloadRows(at: [indexPath], with: .automatic)
+        @unknown default:
+            print("error")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .move:
+            break
+        case .update:
+            break
         @unknown default:
             print("error")
         }
